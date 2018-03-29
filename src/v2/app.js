@@ -65,7 +65,6 @@ function getNearestExchange(exchanges) {
   let nearestExchange = {};
 
   for (let i = 0; i < exchanges.length; i++) {
-    console.log('id: ' + exchanges[i].id);
     if (!isExchangeIdValid(exchanges[i].id)) {
       return {
         isSuccess: false,
