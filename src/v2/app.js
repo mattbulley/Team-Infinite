@@ -65,7 +65,6 @@ function getNearestExchange(exchanges) {
   let nearestExchange = {};
 
   for (let i = 0; i < exchanges.length; i++) {
-    console.log('id: ' + exchanges[i].id);
     if (!isExchangeIdValid(exchanges[i].id)) {
       return {
         isSuccess: false,
@@ -108,10 +107,17 @@ function createExchangeGrid() {
     }
   }
 
+  let homeId = 'r0c0';
+  $('#' + homeId + ' p:first').text('home');
+
   for (let i = 0; i < exchanges.length; i++) {
     let columnId = 'r' + exchanges[i].location.x + 'c' + exchanges[i].location.y;
-    console.log('here: ' + columnId);
-    $('#' + columnId + ' p:first').text(exchanges[i].id);
+    
+    if (columnId === homeId) {
+      $('#' + columnId + ' p:first').text('home, ' + exchanges[i].id);
+    } else {
+      $('#' + columnId + ' p:first').text(exchanges[i].id);
+    }
     $('#' + columnId + ' p:last').text('d: ' + exchanges[i].distance);
   }
 }
