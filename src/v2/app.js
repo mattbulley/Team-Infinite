@@ -15,8 +15,8 @@ let exchanges = [];
 let grid = {
   x: 0,
   y: 0,
-  maxX: 10,
-  maxY: 10
+  maxX: 100000,
+  maxY: 100000
 }
 
 function isGridSizeXValid() {
@@ -53,7 +53,7 @@ function calculateExchangeDistance(location) {
 }
 
 function isExchangeLocationValid(location) {
-	return location.x <= gridSizeX && location.y <= gridSizeY;
+	return location.x < grid.x && location.y < grid.y;
 }
 
 /**
@@ -65,11 +65,17 @@ function getNearestExchange(exchanges) {
 
   for (let i = 0; i < exchanges.length; i++) {
     if (!isExchangeIdValid(exchanges[i].id)) {
-      return 'Exchange ' + exchanges[i].id + ' has an invalid id.';
+      return {
+        isSuccess: false,
+        message: 'Exchange ' + exchanges[i].id + ' has an invalid id.'
+      };
     }
 
     if (!isExchangeLocationValid(exchanges[i].location)) {
-      return 'Exchange ' + exchanges[i].id + ' location is out of range.';
+      return {
+        isSuccess: false,
+        message: 'Exchange ' + exchanges[i].id + ' location is out of range.'
+      };
     }
 
     if (i === 0) {
@@ -79,8 +85,33 @@ function getNearestExchange(exchanges) {
     }
   }
 
-  return 'Nearest exchange: ' + nearestExchange.id +
-         ', distance: ' + nearestExchange.distance;
+  return {
+    isSuccess: true,
+    message: 'Nearest exchange: ' + nearestExchange.id +
+             ', distance: ' + nearestExchange.distance
+  };
+}
+
+function createExchangeGrid() {
+  $('#grid').empty();
+
+  for (let i = 0; i < grid.x; i++) {
+    let rowId = 'r' + i;
+    $('#grid').append($('<tr id="' + rowId + '"></tr>'));
+
+    for (let j = 0; j < grid.y; j++) {
+      let columnId = rowId + 'c' + j;
+      $('#' + rowId).append($('<td id="' + columnId + '"></td>'));
+      $('#' + columnId).append($('<p></p><p></p>'));
+    }
+  }
+
+  for (let i = 0; i < exchanges.length; i++) {
+    let columnId = 'r' + exchanges[i].location.x + 'c' + exchanges[i].location.y;
+    console.log('here: ' + columnId);
+    $('#' + columnId + ' p:first').text(exchanges[i].id);
+    $('#' + columnId + ' p:last').text('d: ' + exchanges[i].distance);
+  }
 }
 
 function submitForm() {
@@ -105,7 +136,12 @@ function submitForm() {
 
   exchanges = [exchange1, exchange2];
   let response = getNearestExchange(exchanges);
-  alert(response);
+
+  if (response.isSuccess) {
+    createExchangeGrid();
+  }
+
+  alert(response.message);
 }
 
 $(document).ready(function() {
@@ -114,16 +150,5 @@ $(document).ready(function() {
     $('#ex1_selectB').append($('<option></option>').attr('value', i).text(i));
     $('#ex2_selectA').append($('<option></option>').attr('value', i).text(i));
     $('#ex2_selectB').append($('<option></option>').attr('value', i).text(i));
-  }
-
-  for (let i = 0; i < grid.maxX; i++) {
-    let rowId = 'r' + i;
-    $('#grid').append($('<tr id="' + rowId + '"></tr>'));
-
-    for (let j = 0; j < grid.maxY; j++) {
-      let columnId = rowId + 'c' + j;
-      $('#' + rowId).append($('<td id="' + columnId + '"></td>'));
-      $('#' + columnId).append($('<p></p>'));
-    }
   }
 });

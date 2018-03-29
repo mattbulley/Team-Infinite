@@ -1,5 +1,9 @@
+p {
+  margin: 0;
+  padding: 2px;
+}
 td {
-	width: 30px;
-	height: 34px;
-	border: 1px solid black;
+  width: 30px;
+  height: 34px;
+  border: 1px solid black;
 }
