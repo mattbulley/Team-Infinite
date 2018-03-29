@@ -53,7 +53,8 @@ function calculateExchangeDistance(location) {
 }
 
 function isExchangeLocationValid(location) {
-	return location.x < grid.x && location.y < grid.y;
+	return location.x >= 0 && location.x < grid.x &&
+         location.y >= 0 && location.y < grid.y;
 }
 
 /**
@@ -64,6 +65,7 @@ function getNearestExchange(exchanges) {
   let nearestExchange = {};
 
   for (let i = 0; i < exchanges.length; i++) {
+    console.log('id: ' + exchanges[i].id);
     if (!isExchangeIdValid(exchanges[i].id)) {
       return {
         isSuccess: false,
