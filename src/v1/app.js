@@ -57,8 +57,8 @@ function isExchangeIdValid(exchange) {
 }
 
 function isExchangeLocationValid(exchange) {
-	return exchange.location.x <= gridSizeX &&
-  			 exchange.location.y <= gridSizeY;
+	return exchange.location.x >= 0 && exchange.location.x <= gridSizeX &&
+  			 exchange.location.y >= 0 && exchange.location.y <= gridSizeY;
 }
 
 function submitForm() {
