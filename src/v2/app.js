@@ -11,17 +11,13 @@
   }
 */
 
+let exchanges = [];
 let grid = {
   x: 0,
   y: 0,
-  maxX: 100000,
-  maxY: 100000
+  maxX: 10,
+  maxY: 10
 }
-
-let gridSizeX = 0;
-let gridSizeY = 0;
-let maxGridSizeX = 100000;
-let maxGridSizeY = 100000;
 
 function isGridSizeXValid() {
 	return grid.x >= 0 && grid.x <= grid.maxX;
@@ -107,6 +103,27 @@ function submitForm() {
   let id2 = createExchangeId($('#ex2_selectA').val(), $('#ex2_selectB').val());
   let exchange2 = createExchange(id2, $('#ex2XPos').val(), $('#ex2YPos').val());
 
-  let response = getNearestExchange([exchange1, exchange2]);
+  exchanges = [exchange1, exchange2];
+  let response = getNearestExchange(exchanges);
   alert(response);
 }
+
+$(document).ready(function() {
+  for (let i = 0; i < 10; i++) {
+    $('#ex1_selectA').append($('<option></option>').attr('value', i).text(i));
+    $('#ex1_selectB').append($('<option></option>').attr('value', i).text(i));
+    $('#ex2_selectA').append($('<option></option>').attr('value', i).text(i));
+    $('#ex2_selectB').append($('<option></option>').attr('value', i).text(i));
+  }
+
+  for (let i = 0; i < grid.maxX; i++) {
+    let rowId = 'r' + i;
+    $('#grid').append($('<tr id="' + rowId + '"></tr>'));
+
+    for (let j = 0; j < grid.maxY; j++) {
+      let columnId = rowId + 'c' + j;
+      $('#' + rowId).append($('<td id="' + columnId + '"></td>'));
+      $('#' + columnId).append($('<p></p>'));
+    }
+  }
+});

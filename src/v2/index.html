@@ -1,79 +1,31 @@
 <html>
-<head>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="app.js"></script>
-</head>
-<body>
-
-<p>
-<form>
-  Grid size X: <input type="number" id="gridX">
-  Grid size Y: <input type="number" id="gridY">
-  <br><br>
-  Exchange 1:
-  <select id="ex1_selectA">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-  </select>
-  <select id="ex1_selectB">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-  </select>
-              <input type="number" id="ex1XPos" >
-              <input type="number" id="ex1YPos" >
-  <br>
-  (ID: [0-9][0-9] X Y)
-  <br>
-  Exchange 2: 
-  <select id="ex2_selectA">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-  </select>
-  <select id="ex2_selectB">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-  </select>
-  <input type="number" id="ex2XPos" >
-  <input type="number" id="ex2YPos" >
-  <br>
-  (ID: [0-9][0-9] X Y)
-</form>
-</p>
-
-
-<button onclick="submitForm()">Calculate</button>
-
-</body>
+  <head>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <form>
+      Grid size X: <input type="number" id="gridX">
+      Grid size Y: <input type="number" id="gridY">
+      <br><br>
+      Exchange 1:
+      <select id="ex1_selectA"></select>
+      <select id="ex1_selectB"></select>
+      <input type="number" id="ex1XPos" >
+      <input type="number" id="ex1YPos" >
+      <br>
+      (ID: [0-9][0-9] X Y)
+      <br>
+      Exchange 2: 
+      <select id="ex2_selectA"></select>
+      <select id="ex2_selectB"></select>
+      <input type="number" id="ex2XPos" >
+      <input type="number" id="ex2YPos" >
+      <br>
+      (ID: [0-9][0-9] X Y)
+    </form>
+    <button onclick="submitForm()">Calculate</button>
+    <table id="grid"></table>
+  </body>
 </html>
