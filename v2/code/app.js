@@ -164,7 +164,9 @@ function createExchangeGrid() {
     if (columnId === homeId) {
       $('#' + columnId + ' p:first').text('home, ' + exchanges[i].id);
     } else {
-      $('#' + columnId + ' p:first').text(exchanges[i].id);
+      if ($('#' + columnId + ' p:first').text().length === 0) {
+        $('#' + columnId + ' p:first').text(exchanges[i].id);
+      }
     }
     $('#' + columnId + ' p:last').text('d: ' + exchanges[i].distance);
   }
