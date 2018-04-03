@@ -28,15 +28,44 @@ function isGridSizeYValid() {
 }
 
 function createExchange(id, xLocation, yLocation) {
+  let isIdValid = isExchangeIdValid(id);
+
+  if (!isIdValid) {
+    return {
+        isSuccess: false,
+        message: 'Exchange ' + id + ' has an invalid id.'
+      };
+  }
+
+  let isIdUnique = isExchangeIdUnique(id);
+
+  if (!isIdUnique) {
+    return {
+        isSuccess: false,
+        message: 'Exchange ' + id + ' does not have a unique id.'
+      };
+  }
+
   let location = {
     x: parseInt(xLocation),
     y: parseInt(yLocation)
   };
 
-	return {
+  if (!isExchangeLocationValid(location)) {
+    return {
+      isSuccess: false,
+      message: 'Exchange ' + id + ' location is out of range.'
+    };
+  }
+
+	exchanges.push({
   	id: id,
     location: location,
     distance: calculateExchangeDistance(location)
+  });
+
+  return {
+    isSuccess: true
   };
 }
 
@@ -50,6 +79,7 @@ function isExchangeIdValid(id) {
 
 function isExchangeIdUnique(id) {
   for (let i = 0; i < exchanges.length; i++) {
+    console.log('id1: ' + id + ', id2: ' + exchanges[i].id);
     if (exchanges[i].id === id) {
       return false;
     }
@@ -71,31 +101,32 @@ function isExchangeLocationValid(location) {
  * Takes an array of exchanges and returns an output string that either
  * describes the nearest exchange or an error message if validation fails.
  */
-function getNearestExchange(exchanges) {
+function getNearestExchange(gridX, gridY, rawExchangeData) {
+  exchanges = [];
+  grid.x = gridX;
+  grid.y = gridY;
+
+  if (!isGridSizeXValid()) {
+    alert('Grid size X must be between 0 and ' + grid.maxX + '.');
+    return;
+  }
+  
+  if (!isGridSizeYValid()) {
+    alert('Grid size Y must be between 0 and ' + grid.maxY + '.');
+    return;
+  }
+
+  for (let i = 0; i < rawExchangeData.length; i++) {
+    let response = createExchange(rawExchangeData[i].id, rawExchangeData[i].x, rawExchangeData[i].y);
+
+    if (!response.isSuccess) {
+      return response;
+    }
+  }
+
   let nearestExchange = {};
 
   for (let i = 0; i < exchanges.length; i++) {
-    if (!isExchangeIdValid(exchanges[i].id)) {
-      return {
-        isSuccess: false,
-        message: 'Exchange ' + exchanges[i].id + ' has an invalid id.'
-      };
-    }
-
-    if (!isExchangeIdUnique(exchanges[i].id)) {
-      return {
-        isSuccess: false,
-        message: 'Exchange ids are not unique.'
-      };
-    }
-
-    if (!isExchangeLocationValid(exchanges[i].location)) {
-      return {
-        isSuccess: false,
-        message: 'Exchange ' + exchanges[i].id + ' location is out of range.'
-      };
-    }
-
     if (i === 0) {
       nearestExchange = exchanges[i];
     } else if (exchanges[i].distance < nearestExchange.distance) {
@@ -140,28 +171,30 @@ function createExchangeGrid() {
 }
 
 function submitForm() {
-	grid.x = parseInt($('#gridX').val());
-  grid.y = parseInt($('#gridY').val());
+	let gridX = parseInt($('#gridX').val());
+  let gridY = parseInt($('#gridY').val());
+  
+  let exchange1Id = createExchangeId($('#ex1_selectA').val(), $('#ex1_selectB').val());
+  let exchange2Id = createExchangeId($('#ex2_selectA').val(), $('#ex2_selectB').val());
+  let exchange1X = $('#ex1XPos').val();
+  let exchange1Y = $('#ex1YPos').val();
+  let exchange2X = $('#ex2XPos').val();
+  let exchange2Y = $('#ex2YPos').val();
 
-  if (!isGridSizeXValid()) {
-  	alert('Grid size X must be between 0 and ' + grid.maxX + '.');
-    return;
-  }
-  
-  if (!isGridSizeYValid()) {
-  	alert('Grid size Y must be between 0 and ' + grid.maxY + '.');
-    return;
-  }
-  
-  let id1 = createExchangeId($('#ex1_selectA').val(), $('#ex1_selectB').val());
-  let exchange1 = createExchange(id1, $('#ex1XPos').val(), $('#ex1YPos').val());
-  exchanges.push(exchange1);
-  
-  let id2 = createExchangeId($('#ex2_selectA').val(), $('#ex2_selectB').val());
-  let exchange2 = createExchange(id2, $('#ex2XPos').val(), $('#ex2YPos').val());
-  exchanges.push(exchange2);
+  let rawExchangeData = [
+    {
+      id: exchange1Id,
+      x: exchange1X,
+      y: exchange1Y,
+    },
+    {
+      id: exchange2Id,
+      x: exchange2X,
+      y: exchange2Y,
+    }
+  ];
 
-  let response = getNearestExchange(exchanges);
+  let response = getNearestExchange(gridX, gridY, rawExchangeData);
 
   if (response.isSuccess) {
     createExchangeGrid();
