@@ -177,7 +177,7 @@ function addExchange() {
 
 function validateExchangeCount(validateMin) {
   let minExchangeCount = 2;
-  let maxExchangeCount = 3;
+  let maxExchangeCount = 99;
   let isValid = false;
 
   if (validateMin) {
@@ -253,5 +253,11 @@ $(document).ready(function() {
     $('#ex1_selectB').append($('<option></option>').attr('value', i).text(i));
     $('#ex2_selectA').append($('<option></option>').attr('value', i).text(i));
     $('#ex2_selectB').append($('<option></option>').attr('value', i).text(i));
+
+    // Quick testing code.
+    // grid.x = grid.y = 10;
+    // createExchange('ex:0:0', 1, 3);
+    // createExchange('ex:0:1', 6, 3);
+    // createExchange('ex:0:2', 4, 2);
   }
 });
