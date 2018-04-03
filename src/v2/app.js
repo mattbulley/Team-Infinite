@@ -48,6 +48,16 @@ function isExchangeIdValid(id) {
 	return /^ex:[0-9]:[0-9]$/.test(id);
 }
 
+function isExchangeIdUnique(id) {
+  for (let i = 0; i < exchanges.length; i++) {
+    if (exchanges[i].id === id) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 function calculateExchangeDistance(location) {
   return location.x + location.y;
 }
@@ -69,6 +79,13 @@ function getNearestExchange(exchanges) {
       return {
         isSuccess: false,
         message: 'Exchange ' + exchanges[i].id + ' has an invalid id.'
+      };
+    }
+
+    if (!isExchangeIdUnique(exchanges[i].id)) {
+      return {
+        isSuccess: false,
+        message: 'Exchange ids are not unique.'
       };
     }
 
@@ -138,11 +155,12 @@ function submitForm() {
   
   let id1 = createExchangeId($('#ex1_selectA').val(), $('#ex1_selectB').val());
   let exchange1 = createExchange(id1, $('#ex1XPos').val(), $('#ex1YPos').val());
+  exchanges.push(exchange1);
   
   let id2 = createExchangeId($('#ex2_selectA').val(), $('#ex2_selectB').val());
   let exchange2 = createExchange(id2, $('#ex2XPos').val(), $('#ex2YPos').val());
+  exchanges.push(exchange2);
 
-  exchanges = [exchange1, exchange2];
   let response = getNearestExchange(exchanges);
 
   if (response.isSuccess) {
