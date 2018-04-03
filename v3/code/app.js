@@ -177,7 +177,7 @@ function addExchange() {
 
 function validateExchangeCount(validateMin) {
   let minExchangeCount = 2;
-  let maxExchangeCount = 3;
+  let maxExchangeCount = 99;
   let isValid = false;
 
   if (validateMin) {
@@ -222,7 +222,9 @@ function createExchangeGrid() {
     if (columnId === homeId) {
       $('#' + columnId + ' p:first').text('home, ' + exchanges[i].id);
     } else {
-      $('#' + columnId + ' p:first').text(exchanges[i].id);
+      if ($('#' + columnId + ' p:first').text().length === 0) {
+        $('#' + columnId + ' p:first').text(exchanges[i].id);
+      }
     }
     $('#' + columnId + ' p:last').text('d: ' + exchanges[i].distance);
   }
@@ -253,5 +255,11 @@ $(document).ready(function() {
     $('#ex1_selectB').append($('<option></option>').attr('value', i).text(i));
     $('#ex2_selectA').append($('<option></option>').attr('value', i).text(i));
     $('#ex2_selectB').append($('<option></option>').attr('value', i).text(i));
+
+    // Quick testing code.
+    // grid.x = grid.y = 10;
+    // createExchange('ex:0:0', 1, 3);
+    // createExchange('ex:0:1', 6, 3);
+    // createExchange('ex:0:2', 4, 2);
   }
 });
