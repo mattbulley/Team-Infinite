@@ -18,11 +18,11 @@ let maxGridSizeY = 100000;
 function isGridSizeXValid() {
 	return gridSizeX >= 0 && gridSizeX <= maxGridSizeX;
 }
-
+//boolean
 function isGridSizeYValid() {
 	return gridSizeY >= 0 && gridSizeY <= maxGridSizeY;
 }
-
+//boolean
 function calculateDistance(exchange) {
 	return exchange.location.x + exchange.location.y;
 }
@@ -37,7 +37,7 @@ function getNearestExchangeId(exchange1, exchange2) {
   	return exchange2.id;
   }
 }
-
+//exchange id
 function createExchange(id, xLoc, yLoc) {
 	return {
   	id: id,
@@ -48,10 +48,12 @@ function createExchange(id, xLoc, yLoc) {
   };
 }
 
+
+
 function createExchangeId(num1, num2) {
 	return 'ex:' + num1 + ':' + num2;
 }
-
+//ex:0:0
 function isExchangeIdValid(exchange) {
 	return /^ex:[0-9]:[0-9]$/.test(exchange.id);
 }
@@ -60,7 +62,7 @@ function isExchangeLocationValid(exchange) {
 	return exchange.location.x >= 0 && exchange.location.x <= gridSizeX &&
   			 exchange.location.y >= 0 && exchange.location.y <= gridSizeY;
 }
-
+//boolean
 function submitForm() {
 	gridSizeX = parseInt($('#gridX').val());
   gridSizeY = parseInt($('#gridY').val());
@@ -70,6 +72,10 @@ function submitForm() {
   
   let id2 = createExchangeId($('#ex2_selectA').val(), $('#ex2_selectB').val());
   let exchange2 = createExchange(id2, $('#ex2XPos').val(), $('#ex2YPos').val());
+  
+  
+  
+  
   
   if (!isGridSizeXValid()) {
   	alert('Grid size X must be between 0 and ' + maxGridSizeX + '.');
