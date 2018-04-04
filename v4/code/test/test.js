@@ -154,6 +154,19 @@ describe('Unit Tests', function() {
         }, 'Capacity must be between 0 and 999.');
       });
     });
+
+    describe('Location Tests', function() {
+      let x = 3, y = 4;
+
+      beforeEach(function() {
+        grid.setSize(10, 10);
+      });
+
+      it('should set the location [' + x + ',' + y + ']', function() {
+        testingExchange.setLocation(grid, x, y);
+        assert({x: x, y: y}, testingExchange.getLocation());
+      });
+    });
   });
   
 }); // Unit Tests
