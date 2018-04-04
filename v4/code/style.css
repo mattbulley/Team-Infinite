@@ -33,6 +33,10 @@ input {
   padding: 6px 6px 4px;
 }
 
+input[readonly] {
+  background-color: #e9e9e9;
+}
+
 select {
   padding: 4px 4px 3px;
 }

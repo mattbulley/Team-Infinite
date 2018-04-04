@@ -6,7 +6,7 @@
 let grid = new Grid();
 let exchangeList = new ExchangeList();
 
-function submitExchange() {
+function submitGrid() {
   let gridX = parseInt($('#gridX').val());
   let gridY = parseInt($('#gridY').val());
 
@@ -17,6 +17,11 @@ function submitExchange() {
     return;
   }
 
+  $('#gridX').prop('readonly', true);
+  $('#gridY').prop('readonly', true);
+}
+
+function submitExchange() {
   let idPart1 = $('#exchangeIdPart1').val();
   let idPart2 = $('#exchangeIdPart2').val();
   let capacity = $('#exchangeCapacity').val();
