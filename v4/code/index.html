@@ -1,0 +1,24 @@
+<html>
+  <head>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    Grid size X: <input type="number" id="gridX">
+    Grid size Y: <input type="number" id="gridY">
+    <br><br>
+    Exchange:
+    <select id="ex1_selectA"></select>
+    <select id="ex1_selectB"></select>
+    <input type="number" id="ex1XPos">
+    <input type="number" id="ex1YPos">
+    <input type="number" id="ex1Capacity">
+    <button onclick="addExchange()">Add</button>
+    <br>
+    ID format: [0-9], [0-9], X, Y, capacity
+    <br>
+    <button onclick="submitForm()">Calculate</button>
+    <table id="grid"></table>
+  </body>
+</html>
