@@ -1,24 +1,35 @@
 <html>
   <head>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  	<script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="Grid.js"></script>
+    <script src="Exchange.js"></script>
+    <script src="ExchangeList.js"></script>
+    <script src="App.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
+
   <body>
-    Grid size X: <input type="number" id="gridX">
-    Grid size Y: <input type="number" id="gridY">
-    <br><br>
-    Exchange:
-    <select id="ex1_selectA"></select>
-    <select id="ex1_selectB"></select>
-    <input type="number" id="ex1XPos">
-    <input type="number" id="ex1YPos">
-    <input type="number" id="ex1Capacity">
-    <button onclick="addExchange()">Add</button>
-    <br>
-    ID format: [0-9], [0-9], X, Y, capacity
-    <br>
-    <button onclick="submitForm()">Calculate</button>
-    <table id="grid"></table>
+    <div class="inputContainer">
+      <div class="infoContainer gridInformation">
+        <h1>Grid Size</h1>
+        <p><input type="number" id="gridX" placeholder="X length"></p>
+        <p><input type="number" id="gridY" placeholder="Y length"></p>
+        <p><button onclick="submitGrid()">Submit</button></p>
+      </div>
+      <div class="infoContainer exchangeInformation">
+        <h1>Add Exchange</h1>
+        <p>ID: ex:<select id="exchangeIdPart1"></select>:<select id="exchangeIdPart2"></select></p>
+        <p><input type="number" id="exchangeX" placeholder="X location"></p>
+        <p><input type="number" id="exchangeY" placeholder="Y location"></p>
+        <p><input type="number" id="exchangeCapacity" placeholder="Capacity"></p>
+        <p><button onclick="submitExchange()">Add</button></p>
+      </div>
+    </div>
+    <div class="infoContainer outputContainer">
+      <h1>Exchange Grid</h1>
+      <button onclick="submitForm()">Calculate</button>
+      <p id="outputMessage"></p>
+      <table id="exchangeGrid"></table>
+    </div>
   </body>
 </html>
