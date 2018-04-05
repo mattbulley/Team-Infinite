@@ -1,6 +1,22 @@
 let assert = chai.assert;
 let should = chai.should;
 
+let j = 0
+
+function testArray(i) {
+		it('should return true when exchangeID contains ' + i, function() {
+					
+							  dave = {
+								id: 'ex:0:0',
+								location: {
+								x: j,
+								y: j
+							}
+						}
+					assert.equal(true, isExchangeIdValid(dave));
+		});
+}
+
 describe('Unit Tests', function() {
 		
 		describe('createExchangeId(num1, num2)', function() {
@@ -14,7 +30,34 @@ describe('Unit Tests', function() {
 				it('should return ex:1:3 when num1=1 and num2=3', function() {
 					assert.equal('ex:1:3', createExchangeId(1, 3));
 				});	
-	
+			});
+			
+			describe('validating exchange ID', function() {
+				
+				describe('-', function() {
+							for(i = 0; i<10; i++) {
+								
+								testArray(i)
+							}
+				});
+				
+				describe('-', function() {
+					
+					it('should return false when exchangeID contains a number greater than 9', function() {
+						
+						 dave = {
+								id: 'ex:0:0',
+								location: {
+								x: 10,
+								y: 10
+							}
+						}
+						assert.equal(false, isExchangeIdValid(dave))
+					});
+				});
+			});
+
+
 		});
 		
 		describe('Validating Grid Size', function() {
