@@ -6,14 +6,10 @@ let j = 0
 function testArray(i) {
 		it('should return true when exchangeID contains ' + i, function() {
 					
-							  dave = {
-								id: 'ex:' + j +':0',
-								location: {
-								x: j,
-								y: j
-							}
-						}
+									dave = 'ex:' + i +':0';
+						
 					assert.equal(true, isExchangeIdValid(dave));
+					
 		});
 }
 
@@ -66,12 +62,22 @@ describe('Unit Tests', function() {
 				
 					
 					it('should return true when y=50', function() {
-						gridSizeY = 50;
+						grid = {
+							x: 0,
+							y: 50,
+							maxX: 100000,
+							maxY: 100000
+						}
 						assert.equal(true,isGridSizeYValid());
 					});
 					
 					it('should return false when y = 100,001', function() {	
-						gridSizeY = 100001;					
+							grid = {
+							x: 0,
+							y: 100001,
+							maxX: 100000,
+							maxY: 100000
+						}				
 						assert.equal(false,isGridSizeYValid());
 					});
 			});
@@ -80,12 +86,22 @@ describe('Unit Tests', function() {
 				
 					
 					it('should return true when x = 50', function() {
-						gridSizeX = 50;
+							grid = {
+							x: 50,
+							y: 0,
+							maxX: 100000,
+							maxY: 100000
+						}
 						assert.equal(true,isGridSizeXValid());
 					});
 					
 					it('should return false when x = 100,001', function() {	
-						gridSizeX = 100001;					
+							grid = {
+							x: 100001,
+							y: 0,
+							maxX: 100000,
+							maxY: 100000
+						}				
 						assert.equal(false,isGridSizeXValid());
 					});
 			});
@@ -95,46 +111,58 @@ describe('Unit Tests', function() {
 	describe('Validating exchange is within grid size', function() {
 		
 		it('should return true when maxGridSizeX= 10 and maxGridSizeY = 10 and x = 5 and y = 5', function(){
-			gridSizeX = 10;
-			gridSizeY = 10;
-			
-			dave = {
-							id: 'ex:0:0',
-							location: {
-							x: 5,
-							y: 5
+				grid = {
+							x: 10,
+							y: 10,
+							maxX: 100000,
+							maxY: 100000
+						}	
+						
+						 dave = {
+								id: 'ex:10:10',
+								location: {
+								x: 10,
+								y: 10
 							}
-				  }
-			assert.equal(true, isExchangeLocationValid(dave))
+			
+			assert.equal(true, isExchangeLocationValid(location))
 		
 		});
 		
 		it('should return true when maxGridSizeX= 10 and maxGridSizeY = 10 and x = 10 and y = 10', function(){
-			gridSizeX = 10;
-			gridSizeY = 10;
 			
-			dave = {
-							id: 'ex:0:0',
-							location: {
+						grid = {
 							x: 10,
-							y: 10
+							y: 10,
+							maxX: 100000,
+							maxY: 100000
+						}	
+			
+							 dave = {
+								id: 'ex:10:10',
+								location: {
+								x: 10,
+								y: 10
 							}
-				  }
-			assert.equal(true, isExchangeLocationValid(dave))
+			assert.equal(true, isExchangeLocationValid(location))
 		
 		});
 		
 				it('should return false when maxGridSizeX= 10 and maxGridSizeY = 10 and x = 11 and y = 11', function(){
-			gridSizeX = 10;
-			gridSizeY = 10;
-			
-			dave = {
-							id: 'ex:0:0',
-							location: {
-							x: 11,
-							y: 11
+						grid = {
+							x: 10,
+							y: 10,
+							maxX: 100000,
+							maxY: 100000
+						}
+	
+							 dave = {
+								id: 'ex:10:10',
+								location: {
+								x: 10,
+								y: 10
 							}
-				  }
+
 			assert.equal(false, isExchangeLocationValid(dave))
 		
 		});
